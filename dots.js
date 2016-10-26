@@ -19,15 +19,17 @@
 
   window.dots.renderDots = function(){
     var circle = svg.selectAll("circle")
-      .data(window.dots.data)
+      .data(window.dots.data) // UPDATE
 
-    circle.exit().remove();
+    circle.enter().append("circle");
 
-    circle.enter().append("circle")
-    // .merge(circle) // for V4
-    .attr("cx", function(d){ return d.x; })
-    .attr("cy", function(d){ return d.y; })
-    .attr("fill", function(d){ return d.color; })
-    .attr("r", 5);
+    circle
+      .transition()
+      .attr("r", 5)
+      .attr("cx", function(d){ return d.x; })
+      .attr("cy", function(d){ return d.y; })
+      .attr("fill", function(d){ return d.color; })
+
+    circle.exit().remove(); //EXIT
   }
 }());
